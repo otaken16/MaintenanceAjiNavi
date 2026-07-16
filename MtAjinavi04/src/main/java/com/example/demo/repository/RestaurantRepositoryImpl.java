@@ -1,0 +1,88 @@
+package com.example.demo.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.entity.RestaurantDto;
+import com.example.demo.form.EditRestaurantForm;
+import com.example.demo.form.RemoveRestaurantForm;
+import com.example.demo.form.SearchRestaurantForm;
+
+import lombok.RequiredArgsConstructor;
+
+@Repository
+@RequiredArgsConstructor
+public class RestaurantRepositoryImpl implements RestaurantRepository {
+
+	private final JdbcTemplate jdbcTemplate;
+
+	@Override
+	public List<RestaurantDto> selectByRestaurantList(SearchRestaurantForm form) {
+		String sql = " SELECT "
+				+ "  mr.restaurant_id, "
+				+ "  mr.restaurant_name, "
+				+ "  mr.catch_phrase, "
+				+ "  COUNT(tr.restaurant_id) review_count"
+				+ " FROM "
+				+ "  m_restaurant mr "
+				+ "  LEFT JOIN t_review tr "
+				+ "   ON mr.restaurant_id = tr.restaurant_id "
+				+ " WHERE "
+				+ "  mr.restaurant_name LIKE ? "
+				+ " GROUP BY "
+				+ "  mr.restaurant_id, "
+				+ "  mr.restaurant_name, "
+				+ "  mr.catch_phrase "
+				+ " ORDER BY "
+				+ "  mr.restaurant_id ";
+
+		String p = "%" + form.getRestaurantName() + "%";
+
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, p);
+
+		List<RestaurantDto> restaurantList = new ArrayList<>();
+
+		for (Map<String, Object> li : list) {
+			RestaurantDto restaurant = new RestaurantDto();
+			restaurant.setRestaurantId((int) li.get("restaurant_id"));
+			restaurant.setRestaurantName((String) li.get("restaurant_name"));
+			restaurant.setCatchPhrase((String) li.get("catch_phrase"));
+			restaurant.setReviewCount(((Long) li.get("review_count")).intValue());
+			restaurantList.add(restaurant);
+		}
+
+		return restaurantList;
+	}
+
+	@Override
+	public void updateRestaurant(EditRestaurantForm form) {
+		String sql = " UPDATE m_restaurant "
+				+ " SET "
+				+ "  restaurant_name = ?, "
+				+ "  catch_phrase = ? "
+				+ " WHERE "
+				+ "  restaurant_id = ? ";
+
+		jdbcTemplate.update(
+				sql,
+				form.getRestaurantName(),
+				form.getCatchPhrase(),
+				form.getRestaurantId());
+
+	}
+
+	@Override
+	public void deleteRestaurant(RemoveRestaurantForm form) {
+		String sql = """
+				DELETE FROM m_restaurant
+				WHERE restaurant_id = ?
+				""";
+		
+		jdbcTemplate.update(sql,form.getRestaurantId());
+	}
+
+}

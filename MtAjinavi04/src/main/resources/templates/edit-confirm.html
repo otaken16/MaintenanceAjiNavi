@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>レストラン編集確認</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div class="container">
+		<h2>レストラン編集確認画面</h2>
+		<h3>この内容で大丈夫？</h3>
+		<div class="confirm-box" th:object="${editRestaurantForm}">
+			<label>レストラン名</label>
+			<p th:text="*{restaurantName}"></p>
+			<br>
+			<label>キャッチフレーズ</label>
+			<p th:text="*{catchPhrase}"></p>
+		</div>
+
+		<form th:action="@{/edit-complete}" th:object="${editRestaurantForm}" method="post">
+			<input type="hidden" th:field="*{restaurantId}">
+			<input type="hidden" th:field="*{restaurantName}">
+			<input type="hidden" th:field="*{catchPhrase}">
+			<input class="btn" type="submit" value="登録">
+		</form>
+		<br>
+		<br>
+		<form th:action="@{/edit-let}" th:object="${editRestaurantForm}" method="post">
+			<input type="hidden" th:field="*{restaurantId}">
+			<input type="hidden" th:field="*{restaurantName}">
+			<input type="hidden" th:field="*{catchPhrase}">
+			<input class="btn-1" type="submit" value="戻る">
+		</form>
+
+	</div>
+</body>
+
+</html>

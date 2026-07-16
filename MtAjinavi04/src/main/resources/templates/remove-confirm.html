@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>レストラン削除確認画面</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div class="container">
+		<h2>レストラン削除確認画面</h2>
+		<h3>このレストランを削除してもよろしいでしょうか。</h3>
+		<div class="confirm-box" th:object="${removeRestaurantForm}">
+			<label>レストラン名</label>
+			<p th:text="*{restaurantName}"></p>
+			<br>
+			<label>キャッチフレーズ</label>
+			<p th:text="*{catchPhrase}"></p>
+		</div>
+
+		<form th:action="@{/remove-complete}" th:object="${removeRestaurantForm}" method="post">
+			<input type="hidden" th:field="*{restaurantId}">
+			<input type="hidden" th:field="*{restaurantName}">
+			<input type="hidden" th:field="*{catchPhrase}">
+			<input class="btn" type="submit" value="削除実行">
+		</form>
+		<br>
+		<br>
+		<form th:action="@{/search-restaurant-list}" method="post">
+			<input type="hidden" name="restaurantName"  th:value="${removeRestaurantForm.searchRestaurantName}">
+			<input class="btn-1" type="submit" value="戻る">
+		</form>
+
+	</div>
+</body>
+
+</html>

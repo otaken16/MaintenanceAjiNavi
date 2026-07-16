@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>レビュー登録</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h2>レストラン検索画面</h2>
+
+		<form th:action="@{/search-restaurant-list}" th:object="${searchRestaurantForm}" method="post">
+			<div class="form-group">
+				<label>レストラン名</label>
+				<input type="text" th:field="*{restaurantName}">
+			</div>
+			
+			<input class="btn" type="submit" value="検索">
+		</form>
+		<br>
+		<br>
+		
+		<div th:if="${restaurantList} != null">
+				<h2>レストラン一覧</h2>
+
+				<table class="restaurant-list">
+					<tr>
+						<th>店舗ID</th>
+						<th>店舗名</th>
+						<th>キャッチフレーズ</th>
+						<th>レビュー件数</th>
+						<th colspan="2">レビュー</th>
+					</tr>
+
+					<tr th:each="restaurant : ${restaurantList}">
+						<td th:text="${restaurant.restaurantId}"></td>
+						<td th:text="${restaurant.restaurantName}"></td>
+						<td th:text="${restaurant.catchPhrase}"></td>
+						<td th:text="${restaurant.reviewCount}"></td>
+						<td>
+							<form th:action="@{/edit-restaurant}" method="POST">
+								<input type="hidden" name="restaurantId" th:value="${restaurant.restaurantId}">
+								<input type="hidden" name="restaurantName" th:value="${restaurant.restaurantName}">
+								<input type="hidden" name="catchPhrase" th:value="${restaurant.catchPhrase}">
+								<input type="hidden" name="searchRestaurantName" th:value="${searchRestaurantForm.restaurantName}">
+								<input class="btn" type="submit" value="編集">
+							</form>
+						</td>
+						<td>
+							<form th:action="@{/remove-restaurant}" method="POST">
+								<input type="hidden" name="restaurantId" th:value="${restaurant.restaurantId}">
+								<input type="hidden" name="restaurantName" th:value="${restaurant.restaurantName}">
+								<input type="hidden" name="catchPhrase" th:value="${restaurant.catchPhrase}">
+								<input type="hidden" name="searchRestaurantName" th:value="${searchRestaurantForm.restaurantName}">
+								<input class="btn-1" type="submit" value="削除">
+							</form>
+						</td>
+						
+					</tr>
+				</table>
+
+			</div>
+			<br>
+		<h3>
+			<a class="link" href="/mt-top">管理者画面へ</a>
+		</h3>
+
+	</div>
+
+</body>
+
+</html>
