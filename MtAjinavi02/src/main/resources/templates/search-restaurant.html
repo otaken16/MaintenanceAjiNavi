@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>レビュー登録</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h2>レストラン検索画面</h2>
+
+		<form th:action="@{/search-restaurant-list}" th:object="${searchRestaurantForm}" method="post">
+			<div class="form-group">
+				<label>レストラン名</label>
+				<input type="text" th:field="*{restaurantName}">
+			</div>
+			
+			<input class="btn" type="submit" value="検索">
+		</form>
+		<br>
+		<br>
+		
+		<div th:if="${restaurantList} != null">
+				<h2>レストラン一覧</h2>
+
+				<table class="restaurant-list">
+					<tr>
+						<th>店舗ID</th>
+						<th>店舗名</th>
+						<th>キャッチフレーズ</th>
+						<th>レビュー件数</th>
+					</tr>
+
+					<tr th:each="restaurant : ${restaurantList}">
+						<td th:text="${restaurant.restaurantId}"></td>
+						<td th:text="${restaurant.restaurantName}"></td>
+						<td th:text="${restaurant.catchPhrase}"></td>
+						<td th:text="${restaurant.reviewCount}"></td>
+					</tr>
+
+				</table>
+
+			</div>
+			<br>
+		<h3>
+			<a class="link" href="/mt-top">管理者画面へ</a>
+		</h3>
+
+	</div>
+
+</body>
+
+</html>

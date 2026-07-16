@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f7fb;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-1 {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: dimgray;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn:hover ,.btn-1:hover{
+    opacity: 0.9;
+}
+
+.confirm-box,
+.success-box {
+    padding: 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.menu-card {
+    margin-top: 24px;
+}
+
+.link-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.link-button:hover {
+    opacity: 0.9;
+}
+
+.link {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.error-msg {
+    color: red;
+}
+
+
+/* レストラン一覧 */
+.restaurant-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 見出し */
+.restaurant-list th {
+    background-color: #2c7be5;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* データ */
+.restaurant-list td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 偶数行 */
+.restaurant-list tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* ホバー */
+.restaurant-list tr:hover {
+    background-color: #e9f3ff;
+}
+
+/* 最後の行 */
+.restaurant-list tr:last-child td {
+    border-bottom: none;
+}
+
+/* ID列 */
+.restaurant-list th:first-child,
+.restaurant-list td:first-child {
+    width: 100px;
+    text-align: center;
+}
+
+/* 店舗名 */
+.restaurant-list th:nth-child(2),
+.restaurant-list td:nth-child(2) {
+    width: 250px;
+}
+
+/* キャッチフレーズ */
+.restaurant-list th:nth-child(3),
+.restaurant-list td:nth-child(3) {
+    width: auto;
+
+}
